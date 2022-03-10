@@ -69,7 +69,7 @@ class Solution {
 
 
 
-动态规划-杨辉三角
+动态规划-杨辉三角i
  public static List<List<Integer>> generate(int numsRaw)
     {
 		//初始化一个包含list类型的list类型
@@ -104,4 +104,44 @@ class Solution {
             result.add(nums);
         }
         return result;
+    }、
+    //杨辉三角II 动态规划思维解法
+     public static List<Integer> getRow(int rowIndex) {
+        List<Integer> res = new ArrayList<>();
+        int count = rowIndex+1;
+        int[][] dp = new int[count][count];
+        dp[0][0]=1;
+        if(rowIndex == 0)
+        {
+            res.add(1);
+            return res;
+        }
+        for(int i =1;i<count;i++)
+        {
+            dp[i][0]=1;
+            dp[i][i]=1;
+            for(int j =1;j<i;j++)
+            {
+                dp[i][j] = dp[i-1][j]+dp[i-1][j-1];
+            }
+        }
+        for(int i =0;i<=rowIndex;i++)
+        {
+          res.add(dp[rowIndex][i]);
+        }
+        return res;
     }
+//杨辉三角 特殊解法 （不懂）
+    public static List<Integer> getRow2(int rowIndex) {
+        List<Integer> row = new ArrayList<>();
+        row.add(1);
+        for(int i = 1; i <= rowIndex; i++){
+            long nums = (long)row.get(i-1);
+            long nums2 = (rowIndex-i+1)/i;
+            int nums3 = (int) (nums2*nums);
+            row.add((int)((long)row.get(i - 1) * (rowIndex - i + 1) / i));
+
+
+        }
+        return row;
+    
