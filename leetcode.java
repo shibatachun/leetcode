@@ -66,3 +66,42 @@ class Solution {
         return root;
     }
 }
+
+
+
+动态规划-杨辉三角
+ public static List<List<Integer>> generate(int numsRaw)
+    {
+		//初始化一个包含list类型的list类型
+        List<List<Integer>> result = new ArrayList<>();
+		//创建二维数组
+        int[][] dp = new int[numsRaw][numsRaw];
+		//第i行第一列永远是1，第i行最后一个永远是1
+        dp[0][0] = 1;
+		//添加到返回list中
+        result.add(new ArrayList<Integer>(){{add(dp[0][0]);}});
+		//判断行数为1直接返回结果
+        if(numsRaw == 1)
+        {
+            return result;
+        }
+		//开始计算
+        for(int i = 1; i<numsRaw;i++)
+        {	//创建一个sublist用来储存每行结果
+            List<Integer> nums = new ArrayList<>();
+            dp[i][0] = 1;
+            nums.add(dp[i][0]);
+			//计算每行每列对应的数，j的数量等于行数减去开头结尾
+            for(int j = 1; j<i;j++)
+            {	
+				//在i行i列等于i-1行的第j个数加上i-1行的第j-1个数
+                dp[i][j] = dp[i-1][j]+dp[i-1][j-1];
+                nums.add(dp[i][j]);
+            }
+			//每行结尾
+            dp[i][i] = 1;
+            nums.add(dp[i][i]);
+            result.add(nums);
+        }
+        return result;
+    }
