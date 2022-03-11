@@ -200,4 +200,36 @@ class Solution2 {
         return max;
     }
 }
+//哈希表求最多或者找单个
+class Solution {
+    public int majorityElement(int[] nums) {
+    	//初始化表
+        Map<Integer,Integer> mymap = new HashMap<>();
+        int r = nums.length/2;
+	//遍历数组，在表中寻找数组对应的数字为key的键值对
+        for(Integer i:nums)
+        {
+	    //一个计数，来查找对应key键值对的出现次数
+            Integer count = mymap.get(i);
+	    //count为null为没出现过，设置值为1，出现过则计数自加
+            count = count ==null?1:++count;
+	    //把键值对放入表中或者更新值
+            mymap.put(i,count);
+
+        }
+	//遍历表中的键值对
+        for(Integer i : mymap.keySet())
+        {
+	    //用count来记录每个键对应的count值
+            Integer count = mymap.get(i);
+	    //如果此计数大于或者小于（根据题目定），则返回此键
+            if(count>r)
+            {
+                return i;
+            }
+        }
+        return -1;
+
+    }
+}
     
