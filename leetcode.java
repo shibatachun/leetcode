@@ -232,4 +232,133 @@ class Solution {
 
     }
 }
-    
+//求两个数组交集（双指针）
+ public int[] intersect(int[] nums1, int[] nums2) {
+ 	//临界条件判定
+        if(nums1.length==0||nums2.length==0)
+        {
+            return null;
+        }
+	//给数组排序
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
+	//定义printer
+        int i =0;
+        int j =0;
+        int k =0;
+	//定义一个新的返回数组
+        int[] res = new int[nums1.length];
+	//当左指针的大小小于数组1的长度与右指针小于数组2的长度
+        while(i<nums1.length&&j<nums2.length)
+        {	
+	    //对各个情况进行判断
+	    //指针对比，数组一的指针小于数组2的指针
+            if(nums1[i]<nums2[j])
+            {
+	    	//左指针+1再进行对比
+                i++;
+            }
+            else if(nums1[i]>nums2[j])
+            {
+                j++;
+            }else
+            {
+                res[k++]=nums1[i];
+                i++;
+                j++;
+            }
+        }
+	//将数组重新改为里面重合数字的长度的大小
+        return Arrays.copyOfRange(res,0,k);
+    }
+    /*
+    plus one解法
+    */
+    public int[] plusOne(int[] digits) {
+        int len = digits.length;
+        int[] res = new int[len+1];
+        if(digits[len-1]!=9)
+        {
+            digits[len-1]++;
+            return digits;
+        }
+        for(int i = len-1;i>=0;i--)
+        {
+            if(digits[i]==9)
+            {
+                digits[i]=0;
+            }
+            else
+            {
+                digits[i]++;
+                return digits;
+            }
+        
+        }
+        res[0]=1;
+        return res;
+
+    }
+    /*
+    移动0解法
+    */
+    public void moveZeroes(int[] nums) {
+    	
+        int len = nums.length;
+	//定义一个index来记录非0数字所占到的索引
+        int index = 0;
+	//遍历
+        for(int i =0;i<nums.length;i++)
+        {	
+	    //如果遍历到数字是非0数字
+            if(nums[i]!=0)
+	    {
+	    	//则索引增加，且索引代表的位置等于此遍历到的数字
+                nums[index++]=nums[i];
+                
+            }
+
+        }
+	//补齐9
+        while(index<len)
+        {
+            nums[index++]=0;
+        }
+
+    }
+    /*
+    两数之和 （运用哈希表）
+    */
+     public int[] twoSum(int[] nums, int target) {
+     
+        Map<Integer,Integer> mymap = new HashMap<>();
+	//遍历数组
+        for(int i =0;i<nums.length;i++)
+        {
+	    //哈希表取目标数字减去当前数字的的值的键值对的值，如果是非空，直接返回新数组
+            if(mymap.get(target-nums[i])!=null)
+            {
+	    	//返回数组，第一个值是当前目标值的键值，也就是目标数字的索引，后面的值是当前索引
+                return new int[]{mymap.get(target-nums[i]),i};
+            }
+	    //添加到mymap里面
+            mymap.put(nums[i],i);
+        }
+        return new int[]{0,0};
+	
+    }
+    //翻转字符串（双指针）
+        public void reverseString(char[] s) {
+        int i = 0;
+        int j = s.length-1;
+        while(i<j)
+        {
+            swap(s,i++,j--);
+        }    
+    }
+    public void swap(char[] s,int left,int right)
+    {
+        char temp = s[left];
+        s[left] = s[right];
+        s[right] = temp;
+    }
