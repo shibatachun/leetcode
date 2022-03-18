@@ -362,3 +362,70 @@ class Solution {
         s[left] = s[right];
         s[right] = temp;
     }
+    //整数翻转哦
+      public int reverse(int x) {
+      	//定义一个res来储存每次循环的结果
+        int res =0;
+	//当x不为时，循环继续
+        while(x!=0)
+        {
+	    //定义一个temp变量来储存每次x对10求余的值（对10求余表示得到得到每次循环x最后一位的数值）
+            int temp = x%10;
+	    //定义一个新res来储存目前的res x 10之后加上余数
+            int newres = res*10+temp;
+	    //防止数字溢出
+            if((newres-temp)/10 != res)
+            {
+                return 0;
+            }
+	    //替换现有的res为new res
+            res=newres;、
+	    //x求商
+            x /= 10;
+        }
+        return res;
+    }
+    //找到唯一的字符(哈希表）
+    public int firstUniqChar(String s) {
+    	//先定义一个哈希表
+        Map<Character,Integer> mymap = new HashMap<>();
+	//把字符串转换为字符数组（不转也行，可以使用s.charAt();）
+        char[] chars = s.toCharArray();
+	//遍历添加每个字符到map集合并在值记录期出现的次数
+        for(char c:chars)
+        {
+            mymap.put(c,mymap.getOrDefault(c,0)+1);
+        }
+	//遍历，次数等于1的字符输出起index
+       for(int i =0;i<s.length();i++)
+       {
+           if(mymap.get(chars[i])==1)
+           {
+               return i;
+           }
+       }
+      
+       return -1;
+    }
+    //判断异位字符（用ascii码判断）
+    public boolean isAnagram(String s, String t) {
+    	//新建两个数组来储存两个字符各自出现的ascii码
+        int count1[] = new int[26];
+        int count2[] = new int[26];
+	//循环第一个字符串，把出现的字母的ascii码记录在数组1中，第二个字符串同理
+        for(int i = 0; i<s.length();i++)
+        {
+	    //这里是用遍历到的字符的ascii码来减去'a'的ascii码来得到其他的ascii码,当对应的ascii码出现式，对应数组的index对应的值加1即可做到记录出现次数
+            count1[s.charAt(i)-'a']++;
+        }
+        for(int i=0; i<t.length();i++)
+        {
+            count2[t.charAt(i)-'a']++;
+        }
+	//
+        if(Arrays.equals(count1,count2))
+        {
+            return true;
+        }
+        return false;
+
